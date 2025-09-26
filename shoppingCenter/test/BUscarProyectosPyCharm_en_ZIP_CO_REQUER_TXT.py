@@ -1,4 +1,4 @@
-
+﻿
 # ===============================
 # Respaldo proyectos PyCharm -> D:\ + ZIP
 # Copia carpetas y comprime al final
@@ -61,9 +61,9 @@ C:\Users\abapa\PycharmProjects\PythonProject2
 C:\Users\abapa\RedGuardMonitor_Final
 "@ -split "`r?`n" | Where-Object { $_ -and $_.Trim().Length -gt 0 }
 
-# --- 2) Si $projects vacío, autodetecta en C:\ (padres de carpetas .idea) ---
+# --- 2) Si $projects vacÃ­o, autodetecta en C:\ (padres de carpetas .idea) ---
 if (-not $projects -or $projects.Count -eq 0) {
-  Write-Host "🔎 Autodetectando proyectos en C:\ (carpetas que contienen .idea)..." -ForegroundColor Cyan
+  Write-Host "ðŸ”Ž Autodetectando proyectos en C:\ (carpetas que contienen .idea)..." -ForegroundColor Cyan
   $projects = Get-ChildItem -Path "C:\" -Directory -Recurse -ErrorAction SilentlyContinue |
               Where-Object { $_.Name -eq ".idea" } |
               ForEach-Object { $_.Parent.FullName } |
@@ -73,11 +73,11 @@ if (-not $projects -or $projects.Count -eq 0) {
 # --- 3) Preparar destino en D:\ ---
 $timestamp  = Get-Date -Format "yyyyMMdd_HHmmss"
 $backupRoot = "D:\Backup_PyCharm_$timestamp"
-if (-not (Test-Path "D:\")) { throw "❌ La unidad D:\ no existe. Conecta el USB y vuelve a intentar." }
+if (-not (Test-Path "D:\")) { throw "âŒ La unidad D:\ no existe. Conecta el USB y vuelve a intentar." }
 New-Item -ItemType Directory -Path $backupRoot -Force | Out-Null
 
 # --- 4) Copiar proyectos (robusto con ROBOCOPY) ---
-# Excluye típicos directorios pesados que puedes volver a crear: entornos, caches, node_modules, etc.
+# Excluye tÃ­picos directorios pesados que puedes volver a crear: entornos, caches, node_modules, etc.
 $excludeDirs = @("venv",".venv","__pycache__",".mypy_cache",".pytest_cache",".tox","node_modules","build","dist",".eggs",".ruff_cache")
 
 $logFile = Join-Path $backupRoot "robocopy.log"
@@ -87,34 +87,34 @@ foreach ($proj in $projects) {
   if (Test-Path $proj) {
     $name = Split-Path $proj -Leaf
     $dest = Join-Path $backupRoot $name
-    Write-Host "📂 Copiando: $proj -> $dest"
+    Write-Host "ðŸ“‚ Copiando: $proj -> $dest"
 
-    # Construir parámetros /XD para excluir directorios
+    # Construir parÃ¡metros /XD para excluir directorios
     $xd = @()
     foreach ($d in $excludeDirs) { $xd += @("/XD", (Join-Path $proj $d)) }
 
     # /E incluye subcarpetas, /R:1 reintentos, /W:1 espera,
-    # /NFL /NDL menos ruido, /NP sin porcentaje, /MT multihilo si está disponible
+    # /NFL /NDL menos ruido, /NP sin porcentaje, /MT multihilo si estÃ¡ disponible
     $args = @($proj, $dest, "/E", "/R:1", "/W:1", "/NFL", "/NDL", "/NP", "/MT:16", "/LOG+:$logFile") + $xd
     $rc = Start-Process -FilePath robocopy.exe -ArgumentList $args -Wait -PassThru
     $copied++
   } else {
-    Write-Host "⚠️ No encontrado: $proj" -ForegroundColor Yellow
+    Write-Host "âš ï¸ No encontrado: $proj" -ForegroundColor Yellow
     $missing++
   }
 }
 
-Write-Host "`n✅ Copia terminada. Proyectos copiados: $copied. No encontrados: $missing." -ForegroundColor Green
-Write-Host "📝 Log de copia: $logFile"
+Write-Host "`nâœ… Copia terminada. Proyectos copiados: $copied. No encontrados: $missing." -ForegroundColor Green
+Write-Host "ðŸ“ Log de copia: $logFile"
 
 # --- 5) Crear ZIP con todo el respaldo ---
 $zipFile = "D:\Backup_PyCharm_$timestamp.zip"
-Write-Host "📦 Comprimiendo a ZIP: $zipFile (puede tardar)..."
+Write-Host "ðŸ“¦ Comprimiendo a ZIP: $zipFile (puede tardar)..."
 # Nota: Compress-Archive puede tener problemas con rutas muy largas en sistemas antiguos.
 Compress-Archive -Path "$backupRoot\*" -DestinationPath $zipFile -CompressionLevel Optimal -Force
-Write-Host "🎉 ZIP creado en: $zipFile" -ForegroundColor Yellow
+Write-Host "ðŸŽ‰ ZIP creado en: $zipFile" -ForegroundColor Yellow
 
-# --- 6) Resumen de tamaños (útil para verificar) ---
+# --- 6) Resumen de tamaÃ±os (Ãºtil para verificar) ---
 $sizes = Get-ChildItem -Path $backupRoot -Directory | ForEach-Object {
   $bytes = (Get-ChildItem -Path $_.FullName -Recurse -File | Measure-Object -Sum Length).Sum
   [pscustomobject]@{ Proyecto = $_.Name; MB = [math]::Round($bytes/1MB,2) }
@@ -122,18 +122,18 @@ $sizes = Get-ChildItem -Path $backupRoot -Directory | ForEach-Object {
 
 $sizes | Format-Table -AutoSize
 $sizes | Out-File -FilePath (Join-Path $backupRoot "sizes_MB.txt") -Encoding UTF8
-Write-Host "📄 Detalle de tamaños guardado en: $(Join-Path $backupRoot 'sizes_MB.txt')"
-Write-Host "`n✅ Respaldo COMPLETO: carpeta + ZIP listos en D:\  —  ¡Buen trabajo!" -ForegroundColor Green
+Write-Host "ðŸ“„ Detalle de tamaÃ±os guardado en: $(Join-Path $backupRoot 'sizes_MB.txt')"
+Write-Host "`nâœ… Respaldo COMPLETO: carpeta + ZIP listos en D:\  â€”  Â¡Buen trabajo!" -ForegroundColor Green
 
-Notas rápidas
+Notas rÃ¡pidas
 
-ROBOCOPY es más fiable que Copy-Item para grandes árboles de carpetas y rutas largas.
+ROBOCOPY es mÃ¡s fiable que Copy-Item para grandes Ã¡rboles de carpetas y rutas largas.
 
-Excluí venv, .venv, node_modules, __pycache__, etc. para ahorrar espacio (se pueden recrear con pip install -r requirements.txt).
-Si quieres incluirlos, dime y te paso la versión sin exclusiones.
+ExcluÃ­ venv, .venv, node_modules, __pycache__, etc. para ahorrar espacio (se pueden recrear con pip install -r requirements.txt).
+Si quieres incluirlos, dime y te paso la versiÃ³n sin exclusiones.
 
-Tendrás:
+TendrÃ¡s:
 
-La carpeta D:\Backup_PyCharm_<fecha>\… con cada proyecto.
+La carpeta D:\Backup_PyCharm_<fecha>\â€¦ con cada proyecto.
 
 Un ZIP D:\Backup_PyCharm_<fecha>.zip con todo (por si quieres moverlo o subirlo).

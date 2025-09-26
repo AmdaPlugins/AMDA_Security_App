@@ -1,38 +1,38 @@
-import sys
+﻿import sys
 from pathlib import Path
 
-# Añadir carpeta shared al path
+# AÃ±adir carpeta shared al path
 shared_path = Path(__file__).resolve().parent.parent / "shared"
 sys.path.append(str(shared_path))
 
-# Verificación de módulos
+# VerificaciÃ³n de mÃ³dulos
 def verificar_modulos():
     errores = []
 
     try:
-        import loader
-        print("✅ loader.py importado correctamente.")
+        from Shared import loader 
+        print("âœ… loader.py importado correctamente.")
     except Exception as e:
-        errores.append(f"❌ Error al importar loader.py: {e}")
+        errores.append(f"âŒ Error al importar loader.py: {e}")
 
     try:
-        import registry
-        print("✅ registry.py importado correctamente.")
+        from Shared import registry 
+        print("âœ… registry.py importado correctamente.")
     except Exception as e:
-        errores.append(f"❌ Error al importar registry.py: {e}")
+        errores.append(f"âŒ Error al importar registry.py: {e}")
 
     try:
-        import phrase
-        print("✅ phrase.py importado correctamente.")
+        from Shared import phrase 
+        print("âœ… phrase.py importado correctamente.")
     except Exception as e:
-        errores.append(f"❌ Error al importar phrase.py: {e}")
+        errores.append(f"âŒ Error al importar phrase.py: {e}")
 
     if errores:
-        print("\n🔍 Resumen de errores:")
+        print("\nðŸ” Resumen de errores:")
         for err in errores:
             print(err)
     else:
-        print("\n🟢 Todos los módulos compartidos están disponibles.")
+        print("\nðŸŸ¢ Todos los mÃ³dulos compartidos estÃ¡n disponibles.")
 
 if __name__ == "__main__":
     verificar_modulos()

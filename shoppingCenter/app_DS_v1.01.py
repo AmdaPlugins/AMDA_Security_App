@@ -1,4 +1,4 @@
-# 📦 Imports
+﻿# ðŸ“¦ Imports
 import streamlit as st
 from pathlib import Path
 import sys
@@ -6,26 +6,26 @@ import json
 import streamlit.components.v1 as components
 from typing import Dict, List, Optional, Any
 
-# 🔗 Add shared folder to path
+# ðŸ”— Add shared folder to path
 shared_path = Path(__file__).resolve().parent.parent / "shared"
 sys.path.append(str(shared_path))
 
-# ⚙️ Page config
+# âš™ï¸ Page config
 st.set_page_config(
     page_title="AmdaOps Viewer",
     layout="wide",
-    page_icon="🛡️",
+    page_icon="ðŸ›¡ï¸",
     initial_sidebar_state="expanded"
 )
 
 
-# 🧠 Load shared modules with better error handling
+# ðŸ§  Load shared modules with better error handling
 def load_shared_modules():
     """Dynamically load shared modules with comprehensive error handling"""
     try:
-        from loader import load_phrases
-        from registry import load_registry, get_prefixes, get_site_by_prefix
-        from phrase import filter_phrases_by_site, get_categories, get_hotwords
+        from Shared.loader import load_phrases
+        from Shared.registry import load_registry, get_prefixes, get_site_by_prefix
+        from Shared.phrase import filter_phrases_by_site, get_categories, get_hotwords
 
         return {
             'load_phrases': load_phrases,
@@ -37,15 +37,15 @@ def load_shared_modules():
             'get_hotwords': get_hotwords
         }
     except ImportError as e:
-        st.error(f"❌ **Module Import Error**: `{e.name}` not found.")
-        st.info("💡 **Solution**: Ensure the shared folder exists and contains all required modules.")
+        st.error(f"âŒ **Module Import Error**: `{e.name}` not found.")
+        st.info("ðŸ’¡ **Solution**: Ensure the shared folder exists and contains all required modules.")
         return None
     except Exception as e:
-        st.error(f"❌ **Unexpected error loading modules**: {e}")
+        st.error(f"âŒ **Unexpected error loading modules**: {e}")
         return None
 
 
-# 📁 Path configuration with validation
+# ðŸ“ Path configuration with validation
 class Config:
     """Centralized configuration management"""
 
@@ -63,7 +63,7 @@ class Config:
         return missing_files
 
 
-# 📊 Data management
+# ðŸ“Š Data management
 class DataManager:
     """Manage data loading and caching"""
 
@@ -95,13 +95,13 @@ class DataManager:
             elif data_type == 'registry':
                 return self.modules['load_registry'](self.config.REGISTRY_PATH)
         except json.JSONDecodeError as e:
-            st.error(f"❌ **JSON Error in {data_type} file**: {e}")
+            st.error(f"âŒ **JSON Error in {data_type} file**: {e}")
         except Exception as e:
-            st.error(f"❌ **Error loading {data_type}**: {e}")
+            st.error(f"âŒ **Error loading {data_type}**: {e}")
         return None
 
 
-# 🎯 UI Components
+# ðŸŽ¯ UI Components
 class UIComponents:
     """Reusable UI components"""
 
@@ -112,25 +112,25 @@ class UIComponents:
             with st.container():
                 col1, col2 = st.columns([1, 2])
                 with col1:
-                    st.subheader("🏢 Site Details")
+                    st.subheader("ðŸ¢ Site Details")
                     st.write(f"**Prefix:** `{selected_prefix}`")
                     st.write(f"**Site type:** {site_info.get('site', 'N/A')}")
                     st.write(f"**Name:** {site_info.get('name', 'N/A')}")
 
                 with col2:
-                    st.subheader("📍 Address Information")
+                    st.subheader("ðŸ“ Address Information")
                     st.write(f"**Address:** {site_info.get('address', 'N/A')}")
                     st.write(f"**City:** {site_info.get('city', 'N/A')}")
                     st.write(f"**State:** {site_info.get('state', 'N/A')}")
                     st.write(f"**ZIP code:** {site_info.get('zip', 'N/A')}")
 
                     if site_info.get("maps_link"):
-                        st.markdown(f"🌍 [View on Google Maps]({site_info['maps_link']})")
+                        st.markdown(f"ðŸŒ [View on Google Maps]({site_info['maps_link']})")
 
     @staticmethod
     def site_form(site_info: Dict, selected_prefix: str, registry_path: Path) -> bool:
         """Render and handle site editing form"""
-        st.subheader("📝 Edit or Register Unit")
+        st.subheader("ðŸ“ Edit or Register Unit")
 
         # Initialize session state for form management
         if "form_cleared" not in st.session_state:
@@ -147,23 +147,23 @@ class UIComponents:
 
             with col1:
                 unit_id = st.text_input(
-                    "🔢 Unit ID",
+                    "ðŸ”¢ Unit ID",
                     value="" if st.session_state.form_cleared else site_info.get("prefix", ""),
                     placeholder="e.g. 343",
-                    help="Número de unidad"
+                    help="NÃºmero de unidad"
                 )
                 address = st.text_input(
-                    "📍 Full Address",
+                    "ðŸ“ Full Address",
                     value="" if st.session_state.form_cleared else site_info.get("address", ""),
-                    help="Dirección completa"
+                    help="DirecciÃ³n completa"
                 )
                 site_name = st.text_input(
-                    "🏷️ Site Name",
+                    "ðŸ·ï¸ Site Name",
                     value="" if st.session_state.form_cleared else site_info.get("name", ""),
                     help="Nombre del sitio"
                 )
                 site_type = st.selectbox(
-                    "🏢 Site Type",
+                    "ðŸ¢ Site Type",
                     site_options,
                     index=site_index,
                     help="Tipo de sitio"
@@ -171,31 +171,31 @@ class UIComponents:
 
             with col2:
                 city = st.text_input(
-                    "🌆 City",
+                    "ðŸŒ† City",
                     value="" if st.session_state.form_cleared else site_info.get("city", ""),
                     help="Ciudad"
                 )
                 state = st.text_input(
-                    "🗺️ State",
+                    "ðŸ—ºï¸ State",
                     value="" if st.session_state.form_cleared else site_info.get("state", ""),
                     help="Estado"
                 )
                 zip_code = st.text_input(
-                    "📮 ZIP Code",
+                    "ðŸ“® ZIP Code",
                     value="" if st.session_state.form_cleared else site_info.get("zip", ""),
-                    help="Código postal"
+                    help="CÃ³digo postal"
                 )
 
             # Action buttons
             col1, col2, col3, col4 = st.columns([2, 1, 1, 1])
             with col1:
-                save_btn = st.form_submit_button("💾 Save Unit", type="primary")
+                save_btn = st.form_submit_button("ðŸ’¾ Save Unit", type="primary")
             with col2:
-                delete_btn = st.form_submit_button("🗑️ Delete Unit")
+                delete_btn = st.form_submit_button("ðŸ—‘ï¸ Delete Unit")
             with col3:
-                clear_btn = st.form_submit_button("🧹 Clear Form")
+                clear_btn = st.form_submit_button("ðŸ§¹ Clear Form")
             with col4:
-                cancel_btn = st.form_submit_button("❌ Cancel")
+                cancel_btn = st.form_submit_button("âŒ Cancel")
 
             # Handle form actions
             if save_btn:
@@ -218,7 +218,7 @@ class UIComponents:
         """Handle save operation with validation"""
         required_fields = [unit_id, address, site_name]
         if not all(required_fields):
-            st.warning("⚠️ Please complete at least **Unit ID**, **Address**, and **Site Name**.")
+            st.warning("âš ï¸ Please complete at least **Unit ID**, **Address**, and **Site Name**.")
             return False
 
         try:
@@ -249,12 +249,12 @@ class UIComponents:
             with open(registry_path, "w", encoding="utf-8") as f:
                 json.dump(registry, f, indent=2, ensure_ascii=False)
 
-            st.success("✅ Unit saved successfully!")
+            st.success("âœ… Unit saved successfully!")
             st.session_state.form_cleared = False
             return True
 
         except Exception as e:
-            st.error(f"❌ Error saving unit: {e}")
+            st.error(f"âŒ Error saving unit: {e}")
             return False
 
     @staticmethod
@@ -264,11 +264,11 @@ class UIComponents:
             st.warning("No unit selected for deletion.")
             return False
 
-        with st.expander("⚠️ Confirm Deletion", expanded=True):
+        with st.expander("âš ï¸ Confirm Deletion", expanded=True):
             st.warning(f"You are about to delete unit `{selected_prefix}`. This action cannot be undone.")
             col1, col2 = st.columns(2)
             with col1:
-                if st.button(f"✅ Confirm Delete", type="primary"):
+                if st.button(f"âœ… Confirm Delete", type="primary"):
                     try:
                         with open(registry_path, 'r', encoding='utf-8') as f:
                             registry = json.load(f)
@@ -278,22 +278,22 @@ class UIComponents:
                         with open(registry_path, "w", encoding="utf-8") as f:
                             json.dump(registry, f, indent=2, ensure_ascii=False)
 
-                        st.success(f"✅ Unit `{selected_prefix}` deleted successfully!")
+                        st.success(f"âœ… Unit `{selected_prefix}` deleted successfully!")
                         st.session_state.form_cleared = False
                         return True
                     except Exception as e:
-                        st.error(f"❌ Error deleting unit: {e}")
+                        st.error(f"âŒ Error deleting unit: {e}")
             with col2:
-                if st.button("❌ Cancel"):
+                if st.button("âŒ Cancel"):
                     st.info("Deletion cancelled")
 
         return False
 
 
-# 🏠 Home Page
+# ðŸ  Home Page
 def render_home_page(data_manager: DataManager, ui: UIComponents, selected_prefix: str):
     """Render the home page with site management"""
-    st.title("🛡️ AmdaOps - Operational Phrase Viewer")
+    st.title("ðŸ›¡ï¸ AmdaOps - Operational Phrase Viewer")
 
     site_info = data_manager.modules['get_site_by_prefix'](data_manager.registry, selected_prefix)
     ui.show_site_info(site_info, selected_prefix)
@@ -302,10 +302,10 @@ def render_home_page(data_manager: DataManager, ui: UIComponents, selected_prefi
     ui.site_form(site_info, selected_prefix, data_manager.config.REGISTRY_PATH)
 
 
-# 🔍 Search Page
+# ðŸ” Search Page
 def render_search_page(data_manager: DataManager, selected_prefix: str):
     """Render the search and filtering page"""
-    st.header("🔍 Filter Phrases")
+    st.header("ðŸ” Filter Phrases")
 
     site_info = data_manager.modules['get_site_by_prefix'](data_manager.registry, selected_prefix)
     filtered_phrases = data_manager.modules['filter_phrases_by_site'](data_manager.phrases, site_info)
@@ -313,17 +313,17 @@ def render_search_page(data_manager: DataManager, selected_prefix: str):
     # Search controls
     col1, col2 = st.columns(2)
     with col1:
-        category = st.selectbox("📂 Category", [""] + data_manager.modules['get_categories'](filtered_phrases))
-        limit = st.slider("🔢 Number of phrases", 1, 50, 10, help="Maximum number of results to display")
+        category = st.selectbox("ðŸ“‚ Category", [""] + data_manager.modules['get_categories'](filtered_phrases))
+        limit = st.slider("ðŸ”¢ Number of phrases", 1, 50, 10, help="Maximum number of results to display")
 
     with col2:
-        hotword = st.selectbox("🔍 Hotword", [""] + data_manager.modules['get_hotwords'](filtered_phrases))
-        custom_hotword = st.text_input("✏️ Or type your own hotword")
+        hotword = st.selectbox("ðŸ” Hotword", [""] + data_manager.modules['get_hotwords'](filtered_phrases))
+        custom_hotword = st.text_input("âœï¸ Or type your own hotword")
 
     final_hotword = custom_hotword.strip() if custom_hotword.strip() else hotword
 
     # Search button
-    if st.button("🔎 Search Phrases", type="primary"):
+    if st.button("ðŸ”Ž Search Phrases", type="primary"):
         with st.spinner("Searching..."):
             results = _search_phrases(filtered_phrases, category, final_hotword, limit)
             _display_search_results(results)
@@ -358,7 +358,7 @@ def _search_phrases(phrases: List[Dict], category: str, hotword: str, limit: int
 
 def _display_search_results(results: List[Dict]):
     """Display search results in a formatted way"""
-    st.subheader(f"🧠 Search Results ({len(results)} found)")
+    st.subheader(f"ðŸ§  Search Results ({len(results)} found)")
 
     if not results:
         st.warning("No phrases found with the selected filters.")
@@ -378,10 +378,10 @@ def _display_search_results(results: List[Dict]):
                 st.write(f"**Hotwords:** {', '.join(phrase['hotwords'])}")
 
 
-# 📋 View All Page
+# ðŸ“‹ View All Page
 def render_view_all_page(data_manager: DataManager, selected_prefix: str):
     """Render the view all phrases page"""
-    st.header("📋 All Phrases")
+    st.header("ðŸ“‹ All Phrases")
 
     site_info = data_manager.modules['get_site_by_prefix'](data_manager.registry, selected_prefix)
     filtered_phrases = data_manager.modules['filter_phrases_by_site'](data_manager.phrases, site_info)
@@ -421,12 +421,12 @@ def render_view_all_page(data_manager: DataManager, selected_prefix: str):
 
         st.markdown(f"""
         **#{i} [{cat}]** {en}  
-        🌐 *{es}*
+        ðŸŒ *{es}*
         """)
         st.divider()
 
 
-# 🎯 Main application
+# ðŸŽ¯ Main application
 def main():
     """Main application entry point"""
 
@@ -436,7 +436,7 @@ def main():
     # Validate file paths
     missing_files = config.validate_paths()
     if missing_files:
-        st.error("❌ **Missing required files:**")
+        st.error("âŒ **Missing required files:**")
         for file_info in missing_files:
             st.write(f"- {file_info}")
         st.stop()
@@ -453,12 +453,12 @@ def main():
     ui = UIComponents()
 
     # Sidebar navigation
-    st.sidebar.title("🧭 Navigation")
+    st.sidebar.title("ðŸ§­ Navigation")
     menu = st.sidebar.radio("Go to", ["Home", "Search phrases", "View all"])
 
     # Site selection
     st.sidebar.divider()
-    st.sidebar.subheader("🏷️ Site Selection")
+    st.sidebar.subheader("ðŸ·ï¸ Site Selection")
     prefixes = modules['get_prefixes'](data_manager.registry)
     selected_prefix = st.sidebar.selectbox("Select Site", prefixes)
 
@@ -466,7 +466,7 @@ def main():
     site_info = modules['get_site_by_prefix'](data_manager.registry, selected_prefix)
     if site_info and site_info.get("maps_link"):
         st.sidebar.divider()
-        st.sidebar.markdown(f"🌍 [Google Maps Link]({site_info['maps_link']})")
+        st.sidebar.markdown(f"ðŸŒ [Google Maps Link]({site_info['maps_link']})")
 
     # Render selected page
     if menu == "Home":

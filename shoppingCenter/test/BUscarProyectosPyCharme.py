@@ -1,9 +1,9 @@
-#EnPowerShelladmin
+﻿#EnPowerShelladmin
 # Buscar proyectos de PyCharm en C:
 $startPath = "C:\"
 $pattern = ".idea"
 
-Write-Host "🔎 Buscando proyectos de PyCharm en $startPath ... (puede tardar varios minutos)"
+Write-Host "ðŸ”Ž Buscando proyectos de PyCharm en $startPath ... (puede tardar varios minutos)"
 
 # Buscar todas las carpetas .idea
 $results = Get-ChildItem -Path $startPath -Directory -Recurse -ErrorAction SilentlyContinue |
@@ -14,21 +14,21 @@ $projects = $results | ForEach-Object { $_.Parent.FullName } | Sort-Object -Uniq
 
 # Mostrar resultados
 if ($projects.Count -gt 0) {
-    Write-Host "`n✅ Se encontraron $($projects.Count) proyectos de PyCharm:`n" -ForegroundColor Green
+    Write-Host "`nâœ… Se encontraron $($projects.Count) proyectos de PyCharm:`n" -ForegroundColor Green
     $projects | ForEach-Object { Write-Host $_ -ForegroundColor Cyan }
 
     # Guardar en archivo en el Escritorio
     $outFile = "$env:USERPROFILE\Desktop\PyCharm_Projects_Found.txt"
     $projects | Out-File -FilePath $outFile -Encoding UTF8
-    Write-Host "`n📄 Lista guardada en: $outFile" -ForegroundColor Yellow
+    Write-Host "`nðŸ“„ Lista guardada en: $outFile" -ForegroundColor Yellow
 } else {
-    Write-Host "`n⚠️ No se encontraron proyectos de PyCharm en $startPath" -ForegroundColor Red
+    Write-Host "`nâš ï¸ No se encontraron proyectos de PyCharm en $startPath" -ForegroundColor Red
 }
 
-#🚀 Cómo usarlo
+#ðŸš€ CÃ³mo usarlo
 
-#Abre PowerShell (Win + R → escribe powershell → Enter).
-#Si puedes, ejecútalo como administrador porque busca en todo C:.
+#Abre PowerShell (Win + R â†’ escribe powershell â†’ Enter).
+#Si puedes, ejecÃºtalo como administrador porque busca en todo C:.
 #Copia y pega el script.
-#Espera unos minutos (depende del tamaño de tu disco).
-#Al final verás en pantalla todas las carpetas encontradas y además un archivo:
+#Espera unos minutos (depende del tamaÃ±o de tu disco).
+#Al final verÃ¡s en pantalla todas las carpetas encontradas y ademÃ¡s un archivo:

@@ -1,4 +1,4 @@
-# 📦 Imports
+﻿# ðŸ“¦ Imports
 import streamlit as st
 from pathlib import Path
 import sys
@@ -10,30 +10,30 @@ from typing import Dict, List, Optional, Any, Tuple
 import uuid
 import re
 
-# 🔗 Add shared folder to path
+# ðŸ”— Add shared folder to path
 shared_path = Path(__file__).resolve().parent.parent / "shared"
 sys.path.append(str(shared_path))
 
-# ⚙️ Page config
+# âš™ï¸ Page config
 st.set_page_config(
     page_title="AmdaOps - Security Management",
     layout="wide",
-    page_icon="🛡️",
+    page_icon="ðŸ›¡ï¸",
     initial_sidebar_state="expanded"
 )
 
 
-# 🧠 Load shared modules with better error handling
+# ðŸ§  Load shared modules with better error handling
 def load_shared_modules():
     """Dynamically load shared modules with comprehensive error handling"""
     try:
-        # Importar módulos compartidos con manejo de errores mejorado
+        # Importar mÃ³dulos compartidos con manejo de errores mejorado
         try:
-            from loader import load_phrases
-            from registry import load_registry, get_prefixes, get_site_by_prefix
-            from phrase import filter_phrases_by_site, get_categories, get_hotwords
+            from Shared.loader import load_phrases
+            from Shared.registry import load_registry, get_prefixes, get_site_by_prefix
+            from Shared.phrase import filter_phrases_by_site, get_categories, get_hotwords
         except ImportError as e:
-            st.error(f"❌ **Error importing shared modules**: {e}")
+            st.error(f"âŒ **Error importing shared modules**: {e}")
 
             # Crear funciones dummy para evitar errores
             def load_phrases(path):
@@ -94,11 +94,11 @@ def load_shared_modules():
             'get_hotwords': get_hotwords
         }
     except Exception as e:
-        st.error(f"❌ **Unexpected error loading modules**: {e}")
+        st.error(f"âŒ **Unexpected error loading modules**: {e}")
         return None
 
 
-# 📁 Enhanced configuration with new JSON files
+# ðŸ“ Enhanced configuration with new JSON files
 class Config:
     """Centralized configuration management with new security features"""
 
@@ -137,7 +137,7 @@ class Config:
                 except Exception as e:
                     st.error(f"Error creating {file_path}: {e}")
 
-        # Inicializar site_registry.json con formato correcto si no existe o está corrupto
+        # Inicializar site_registry.json con formato correcto si no existe o estÃ¡ corrupto
         if not self.REGISTRY_PATH.exists():
             default_registry = [
                 {
@@ -168,7 +168,7 @@ class Config:
         return missing_files
 
 
-# 📊 Enhanced Data Manager
+# ðŸ“Š Enhanced Data Manager
 class DataManager:
     """Manage data loading and caching with security officer features"""
 
@@ -274,7 +274,7 @@ class DataManager:
                 with open(self.config.TIME_LOGS_PATH, 'r', encoding='utf-8') as f:
                     return json.load(f)
         except Exception as e:
-            st.error(f"❌ **Error loading {data_type}**: {e}")
+            st.error(f"âŒ **Error loading {data_type}**: {e}")
             return []
 
     def save_officers(self, officers_data: List[Dict]):
@@ -322,7 +322,7 @@ class DataManager:
             return False
 
 
-# 🎯 Enhanced UI Components with Site Management
+# ðŸŽ¯ Enhanced UI Components with Site Management
 class UIComponents:
     """Reusable UI components with enhanced site management"""
 
@@ -331,7 +331,7 @@ class UIComponents:
         """Display comprehensive site information"""
         if site_info:
             with st.container():
-                st.subheader("🏢 Site Details")
+                st.subheader("ðŸ¢ Site Details")
 
                 col1, col2 = st.columns(2)
                 with col1:
@@ -346,12 +346,12 @@ class UIComponents:
                     st.write(f"**ZIP:** {site_info.get('zip', 'N/A')}")
 
                     if site_info.get("maps_link"):
-                        st.markdown(f"🌍 [View on Google Maps]({site_info['maps_link']})")
+                        st.markdown(f"ðŸŒ [View on Google Maps]({site_info['maps_link']})")
 
     @staticmethod
     def site_management(data_manager: DataManager, selected_prefix: str):
         """Enhanced site management with edit/save/delete functionality"""
-        st.subheader("🏢 Site Management")
+        st.subheader("ðŸ¢ Site Management")
 
         site_info = data_manager.modules['get_site_by_prefix'](data_manager.registry, selected_prefix)
 
@@ -365,27 +365,27 @@ class UIComponents:
             if not st.session_state[f'edit_mode_{selected_prefix}']:
                 st.info(f"Currently viewing: **{site_info.get('name', 'Unknown Site')}**")
             else:
-                st.warning("📝 Edit Mode Active - Modifying Site Details")
+                st.warning("ðŸ“ Edit Mode Active - Modifying Site Details")
 
         with col2:
             if not st.session_state[f'edit_mode_{selected_prefix}']:
-                if st.button("✏️ Edit Site", key=f"edit_{selected_prefix}"):
+                if st.button("âœï¸ Edit Site", key=f"edit_{selected_prefix}"):
                     st.session_state[f'edit_mode_{selected_prefix}'] = True
                     st.rerun()
             else:
-                if st.button("💾 Save", key=f"save_{selected_prefix}", type="primary"):
+                if st.button("ðŸ’¾ Save", key=f"save_{selected_prefix}", type="primary"):
                     if UIComponents._save_site_details(data_manager, selected_prefix):
                         st.session_state[f'edit_mode_{selected_prefix}'] = False
                         st.rerun()
 
         with col3:
             if st.session_state[f'edit_mode_{selected_prefix}']:
-                if st.button("❌ Cancel", key=f"cancel_{selected_prefix}"):
+                if st.button("âŒ Cancel", key=f"cancel_{selected_prefix}"):
                     st.session_state[f'edit_mode_{selected_prefix}'] = False
                     st.rerun()
 
         with col4:
-            if site_info and st.button("🗑️ Delete", key=f"delete_{selected_prefix}"):
+            if site_info and st.button("ðŸ—‘ï¸ Delete", key=f"delete_{selected_prefix}"):
                 UIComponents._delete_site_confirmation(data_manager, selected_prefix)
 
         # Display or edit site details based on mode
@@ -404,7 +404,7 @@ class UIComponents:
                 col1, col2 = st.columns(2)
 
                 with col1:
-                    st.subheader("📍 Basic Information")
+                    st.subheader("ðŸ“ Basic Information")
                     st.write(f"**Prefix:** `{site_info.get('prefix', 'N/A')}`")
                     st.write(f"**Site Type:** {site_info.get('site', 'N/A')}")
                     st.write(f"**Site Name:** {site_info.get('name', 'N/A')}")
@@ -416,7 +416,7 @@ class UIComponents:
                         st.write(f"**Contact Phone:** {site_info.get('contact_phone')}")
 
                 with col2:
-                    st.subheader("🏠 Address Details")
+                    st.subheader("ðŸ  Address Details")
                     st.write(f"**Address:** {site_info.get('address', 'N/A')}")
                     st.write(f"**City:** {site_info.get('city', 'N/A')}")
                     st.write(f"**State:** {site_info.get('state', 'N/A')}")
@@ -424,7 +424,7 @@ class UIComponents:
                     st.write(f"**Country:** {site_info.get('country', 'USA')}")
 
                     if site_info.get("maps_link"):
-                        st.markdown(f"### 🌍 Navigation")
+                        st.markdown(f"### ðŸŒ Navigation")
                         st.markdown(f"[Open in Google Maps]({site_info['maps_link']})")
 
         else:
@@ -434,7 +434,7 @@ class UIComponents:
     def _render_site_edit_form(data_manager: DataManager, site_info: Dict, selected_prefix: str):
         """Render site edit form"""
         with st.form(key=f"site_edit_form_{selected_prefix}"):
-            st.subheader("📝 Edit Site Details")
+            st.subheader("ðŸ“ Edit Site Details")
 
             # Form organized in tabs for better organization
             tab1, tab2, tab3 = st.tabs(["Basic Info", "Address", "Additional Details"])
@@ -443,12 +443,12 @@ class UIComponents:
                 col1, col2 = st.columns(2)
                 with col1:
                     prefix = st.text_input(
-                        "🔢 Site Prefix*",
+                        "ðŸ”¢ Site Prefix*",
                         value=site_info.get('prefix', selected_prefix) if site_info else selected_prefix,
                         help="Unique identifier for the site"
                     )
                     site_type = st.selectbox(
-                        "🏢 Site Type*",
+                        "ðŸ¢ Site Type*",
                         options=["ShoppingCenter", "Warehouse", "Parking", "Office", "Residential", "Other"],
                         index=0 if not site_info else ["ShoppingCenter", "Warehouse", "Parking", "Office",
                                                        "Residential", "Other"].index(
@@ -457,26 +457,26 @@ class UIComponents:
                                                        "Residential", "Other"] else 0
                     )
                     site_name = st.text_input(
-                        "🏷️ Site Name*",
+                        "ðŸ·ï¸ Site Name*",
                         value=site_info.get('name', ''),
                         help="Official name of the site"
                     )
 
                 with col2:
                     status = st.selectbox(
-                        "📊 Status",
+                        "ðŸ“Š Status",
                         options=["Active", "Inactive", "Under Maintenance", "Planned"],
                         index=0 if not site_info else ["Active", "Inactive", "Under Maintenance", "Planned"].index(
                             site_info.get('status', 'Active')
                         ) if site_info.get('status') in ["Active", "Inactive", "Under Maintenance", "Planned"] else 0
                     )
                     contact_name = st.text_input(
-                        "👤 Contact Person",
+                        "ðŸ‘¤ Contact Person",
                         value=site_info.get('contact_name', ''),
                         help="Primary contact at the site"
                     )
                     contact_phone = st.text_input(
-                        "📞 Contact Phone",
+                        "ðŸ“ž Contact Phone",
                         value=site_info.get('contact_phone', ''),
                         help="Contact phone number"
                     )
@@ -485,50 +485,50 @@ class UIComponents:
                 col1, col2 = st.columns(2)
                 with col1:
                     address = st.text_input(
-                        "📍 Street Address*",
+                        "ðŸ“ Street Address*",
                         value=site_info.get('address', ''),
                         help="Full street address"
                     )
                     city = st.text_input(
-                        "🌆 City*",
+                        "ðŸŒ† City*",
                         value=site_info.get('city', ''),
                         help="City name"
                     )
 
                 with col2:
                     state = st.text_input(
-                        "🗺️ State/Province*",
+                        "ðŸ—ºï¸ State/Province*",
                         value=site_info.get('state', ''),
                         help="State or province"
                     )
                     zip_code = st.text_input(
-                        "📮 ZIP/Postal Code*",
+                        "ðŸ“® ZIP/Postal Code*",
                         value=site_info.get('zip', ''),
                         help="Postal code"
                     )
 
                 country = st.text_input(
-                    "🇺🇸 Country",
+                    "ðŸ‡ºðŸ‡¸ Country",
                     value=site_info.get('country', 'USA'),
                     help="Country name"
                 )
 
             with tab3:
                 notes = st.text_area(
-                    "📋 Notes",
+                    "ðŸ“‹ Notes",
                     value=site_info.get('notes', ''),
                     help="Additional notes about the site",
                     height=100
                 )
                 special_instructions = st.text_area(
-                    "⚠️ Special Instructions",
+                    "âš ï¸ Special Instructions",
                     value=site_info.get('special_instructions', ''),
                     help="Important instructions for security personnel",
                     height=100
                 )
 
                 # Security requirements
-                st.subheader("🛡️ Security Requirements")
+                st.subheader("ðŸ›¡ï¸ Security Requirements")
                 col1, col2 = st.columns(2)
                 with col1:
                     required_officers = st.number_input(
@@ -559,7 +559,7 @@ class UIComponents:
             # Form validation and submission
             st.markdown("**Note:** Fields marked with * are required")
 
-            submit_button = st.form_submit_button("💾 Save Site Details", type="primary")
+            submit_button = st.form_submit_button("ðŸ’¾ Save Site Details", type="primary")
 
             if submit_button:
                 # Validate required fields
@@ -612,7 +612,7 @@ class UIComponents:
                         registry.append(updated_site)
 
                     if data_manager.save_registry(registry):
-                        st.success("✅ Site details saved successfully!")
+                        st.success("âœ… Site details saved successfully!")
                         return True
 
         return False
@@ -626,13 +626,13 @@ class UIComponents:
     @staticmethod
     def _delete_site_confirmation(data_manager: DataManager, selected_prefix: str):
         """Handle site deletion with confirmation"""
-        with st.expander("⚠️ Confirm Deletion", expanded=True):
+        with st.expander("âš ï¸ Confirm Deletion", expanded=True):
             st.error(f"**Danger Zone**: You are about to delete site `{selected_prefix}`")
             st.warning("This action cannot be undone and will remove all associated schedules and data!")
 
             col1, col2 = st.columns(2)
             with col1:
-                if st.button("✅ Confirm Delete", type="primary"):
+                if st.button("âœ… Confirm Delete", type="primary"):
                     registry = data_manager.registry.copy()
                     registry = [r for r in registry if r.get('prefix') != selected_prefix]
 
@@ -641,20 +641,20 @@ class UIComponents:
                     schedules = [s for s in schedules if s.get('site_prefix') != selected_prefix]
 
                     if data_manager.save_registry(registry) and data_manager.save_schedules(schedules):
-                        st.success(f"✅ Site `{selected_prefix}` deleted successfully!")
+                        st.success(f"âœ… Site `{selected_prefix}` deleted successfully!")
                         st.rerun()
 
             with col2:
-                if st.button("❌ Cancel Deletion"):
+                if st.button("âŒ Cancel Deletion"):
                     st.info("Deletion cancelled")
 
-    # ... (el resto de los métodos se mantienen igual, solo muestro los cambios principales)
+    # ... (el resto de los mÃ©todos se mantienen igual, solo muestro los cambios principales)
 
 
-# 🏠 Enhanced Home Page
+# ðŸ  Enhanced Home Page
 def render_home_page(data_manager: DataManager, ui: UIComponents, selected_prefix: str):
     """Render the enhanced home page with security officer features"""
-    st.title("🛡️ AmdaOps - Security Management System")
+    st.title("ðŸ›¡ï¸ AmdaOps - Security Management System")
 
     # Site Management Section
     ui.site_management(data_manager, selected_prefix)
@@ -675,10 +675,10 @@ def render_home_page(data_manager: DataManager, ui: UIComponents, selected_prefi
     ui.time_tracking_dashboard(data_manager, selected_prefix)
 
 
-# 🔍 Search Page
+# ðŸ” Search Page
 def render_search_page(data_manager: DataManager, selected_prefix: str):
     """Render the search and filtering page"""
-    st.header("🔍 Filter Phrases")
+    st.header("ðŸ” Filter Phrases")
 
     site_info = data_manager.modules['get_site_by_prefix'](data_manager.registry, selected_prefix)
     filtered_phrases = data_manager.modules['filter_phrases_by_site'](data_manager.phrases, site_info)
@@ -687,18 +687,18 @@ def render_search_page(data_manager: DataManager, selected_prefix: str):
     col1, col2 = st.columns(2)
     with col1:
         categories = data_manager.modules['get_categories'](filtered_phrases)
-        category = st.selectbox("📂 Category", [""] + categories)
-        limit = st.slider("🔢 Number of phrases", 1, 50, 10, help="Maximum number of results to display")
+        category = st.selectbox("ðŸ“‚ Category", [""] + categories)
+        limit = st.slider("ðŸ”¢ Number of phrases", 1, 50, 10, help="Maximum number of results to display")
 
     with col2:
         hotwords = data_manager.modules['get_hotwords'](filtered_phrases)
-        hotword = st.selectbox("🔍 Hotword", [""] + hotwords)
-        custom_hotword = st.text_input("✏️ Or type your own hotword")
+        hotword = st.selectbox("ðŸ” Hotword", [""] + hotwords)
+        custom_hotword = st.text_input("âœï¸ Or type your own hotword")
 
     final_hotword = custom_hotword.strip() if custom_hotword.strip() else hotword
 
     # Search button
-    if st.button("🔎 Search Phrases", type="primary"):
+    if st.button("ðŸ”Ž Search Phrases", type="primary"):
         with st.spinner("Searching..."):
             results = _search_phrases(filtered_phrases, category, final_hotword, limit)
             _display_search_results(results)
@@ -731,7 +731,7 @@ def _search_phrases(phrases: List[Dict], category: str, hotword: str, limit: int
 
 def _display_search_results(results: List[Dict]):
     """Display search results in a formatted way"""
-    st.subheader(f"🧠 Search Results ({len(results)} found)")
+    st.subheader(f"ðŸ§  Search Results ({len(results)} found)")
 
     if not results:
         st.warning("No phrases found with the selected filters.")
@@ -751,10 +751,10 @@ def _display_search_results(results: List[Dict]):
                 st.write(f"**Hotwords:** {', '.join(phrase['hotwords'])}")
 
 
-# 📋 View All Page
+# ðŸ“‹ View All Page
 def render_view_all_page(data_manager: DataManager, selected_prefix: str):
     """Render the view all phrases page"""
-    st.header("📋 All Phrases")
+    st.header("ðŸ“‹ All Phrases")
 
     site_info = data_manager.modules['get_site_by_prefix'](data_manager.registry, selected_prefix)
     filtered_phrases = data_manager.modules['filter_phrases_by_site'](data_manager.phrases, site_info)
@@ -794,12 +794,12 @@ def render_view_all_page(data_manager: DataManager, selected_prefix: str):
 
         st.markdown(f"""
         **#{i} [{cat}]** {en}  
-        🌐 *{es}*
+        ðŸŒ *{es}*
         """)
         st.divider()
 
 
-# 🎯 Enhanced Main Application
+# ðŸŽ¯ Enhanced Main Application
 def main():
     """Main application entry point"""
 
@@ -809,16 +809,16 @@ def main():
     # Validate core file paths
     missing_files = config.validate_core_paths()
     if missing_files:
-        st.error("❌ **Missing required files:**")
+        st.error("âŒ **Missing required files:**")
         for file_info in missing_files:
             st.write(f"- {file_info}")
-        st.info("💡 **Solution**: Please ensure the data folder exists with the required JSON files.")
+        st.info("ðŸ’¡ **Solution**: Please ensure the data folder exists with the required JSON files.")
         st.stop()
 
     # Load shared modules
     modules = load_shared_modules()
     if not modules:
-        st.info("⚠️ **Note**: Some features may be limited due to missing shared modules.")
+        st.info("âš ï¸ **Note**: Some features may be limited due to missing shared modules.")
         # Continue with limited functionality
 
     # Initialize data manager
@@ -828,10 +828,10 @@ def main():
     ui = UIComponents()
 
     # Enhanced Sidebar
-    st.sidebar.title("🧭 AmdaOps Navigation")
+    st.sidebar.title("ðŸ§­ AmdaOps Navigation")
 
     # Site selection with enhanced information
-    st.sidebar.subheader("🏷️ Site Selection")
+    st.sidebar.subheader("ðŸ·ï¸ Site Selection")
 
     # Obtener prefixes de manera segura
     try:
@@ -866,24 +866,24 @@ def main():
     site_info = modules['get_site_by_prefix'](data_manager.registry, selected_prefix) if modules else {}
     if site_info:
         st.sidebar.divider()
-        st.sidebar.subheader("📍 Selected Site Info")
+        st.sidebar.subheader("ðŸ“ Selected Site Info")
         st.sidebar.write(f"**Name:** {site_info.get('name', 'N/A')}")
         st.sidebar.write(f"**Type:** {site_info.get('site', 'N/A')}")
         st.sidebar.write(f"**Status:** {site_info.get('status', 'Active')}")
         st.sidebar.write(f"**Address:** {site_info.get('address', 'N/A')}")
 
         if site_info.get("maps_link"):
-            st.sidebar.markdown(f"🌍 [Google Maps]({site_info['maps_link']})")
+            st.sidebar.markdown(f"ðŸŒ [Google Maps]({site_info['maps_link']})")
 
     # Navigation
     st.sidebar.divider()
-    st.sidebar.subheader("📂 Application Pages")
+    st.sidebar.subheader("ðŸ“‚ Application Pages")
     menu = st.sidebar.radio("Go to", ["Home", "Search phrases", "View all"])
 
     # Quick stats in sidebar
     if data_manager.officers:
         st.sidebar.divider()
-        st.sidebar.subheader("📊 Quick Stats")
+        st.sidebar.subheader("ðŸ“Š Quick Stats")
         active_officers = len([o for o in data_manager.officers if o.get('status') == 'Active'])
         total_schedules = len(data_manager.schedules)
 
