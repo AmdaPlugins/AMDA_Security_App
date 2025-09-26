@@ -59,3 +59,5 @@ docs/*.toc
 # 🚀 Otros
 .DS_Store
 Thumbs.db
+
+/.venv/
