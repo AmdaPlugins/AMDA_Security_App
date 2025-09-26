@@ -1,0 +1,182 @@
+[
+  {
+    "site": "Shopping Center",
+    "cat": "Patrol",
+    "en": "Exterior perimeter patrol completed; no suspicious activity observed.",
+    "es": "Patrullaje del perímetro exterior completado; no se observó actividad sospechosa."
+  },
+  {
+    "site": "Shopping Center",
+    "cat": "Patrol",
+    "en": "Storefront roll-up doors checked; secured.",
+    "es": "Puertas enrollables de fachadas revisadas; aseguradas."
+  },
+  {
+    "site": "Shopping Center",
+    "cat": "Patrol",
+    "en": "Parking lot lighting inspected; all operational.",
+    "es": "Iluminación del estacionamiento inspeccionada; todo operativo."
+  },
+  {
+    "site": "Shopping Center",
+    "cat": "Patrol",
+    "en": "Vacant unit check completed; doors secured.",
+    "es": "Unidad desocupada revisada; puertas aseguradas."
+  },
+  {
+    "site": "Shopping Center",
+    "cat": "Patrol",
+    "en": "Roof access ladder locked; verified.",
+    "es": "Escalera de acceso al techo con candado; verificado."
+  },
+  {
+    "site": "Shopping Center",
+    "cat": "Loss Prevention",
+    "en": "Tenant reported suspected shoplifting; details documented; exits monitored.",
+    "es": "Inquilino reportó posible hurto; detalles documentados; salidas monitoreadas."
+  },
+  {
+    "site": "Shopping Center",
+    "cat": "Loss Prevention",
+    "en": "Observed rapid-selection behavior; monitored and tenant manager notified.",
+    "es": "Conducta de selección rápida observada; se monitoreó y se notificó al gerente del local."
+  },
+  {
+    "site": "Shopping Center",
+    "cat": "Loss Prevention",
+    "en": "Coordinated receipt verification with tenant; compliant.",
+    "es": "Verificación de recibo coordinada con el local; cumplimiento observado."
+  },
+  {
+    "site": "Shopping Center",
+    "cat": "Loss Prevention",
+    "en": "Increased patrol presence during tenant closing upon request.",
+    "es": "Presencia de patrulla incrementada durante el cierre del local por solicitud."
+  },
+  {
+    "site": "Shopping Center",
+    "cat": "Loss Prevention",
+    "en": "CCTV bookmark created for requested timeframe.",
+    "es": "Marcador de CCTV creado para el período solicitado."
+  },
+  {
+    "site": "Shopping Center",
+    "cat": "Access",
+    "en": "Utility contractor verified; escorted to electrical room.",
+    "es": "Contratista de servicios verificado; escoltado a la sala eléctrica."
+  },
+  {
+    "site": "Shopping Center",
+    "cat": "Access",
+    "en": "Dumpster enclosure gate found open; secured and logged.",
+    "es": "Portón del área de contenedores encontrado abierto; se aseguró y registró."
+  },
+  {
+    "site": "Shopping Center",
+    "cat": "Access",
+    "en": "Service corridor door alarm tested with maintenance; normal.",
+    "es": "Alarma de puerta en pasillo de servicio probada con mantenimiento; normal."
+  },
+  {
+    "site": "Shopping Center",
+    "cat": "Parking",
+    "en": "Vehicle occupying two spaces; driver advised; corrected.",
+    "es": "Vehículo ocupando dos espacios; conductor advertido; corregido."
+  },
+  {
+    "site": "Shopping Center",
+    "cat": "Parking",
+    "en": "Long-term parking complaint; vehicle logged; tag recorded.",
+    "es": "Queja por estacionamiento prolongado; vehículo registrado; placa anotada."
+  },
+  {
+    "site": "Shopping Center",
+    "cat": "Parking",
+    "en": "Loading zone misuse by customer vehicle; education provided.",
+    "es": "Uso indebido de zona de carga por vehículo de cliente; se brindó orientación."
+  },
+  {
+    "site": "Shopping Center",
+    "cat": "Parking",
+    "en": "Speeding observed in drive lane; increased patrol presence.",
+    "es": "Exceso de velocidad observado en la vía interna; se incrementó la presencia de patrulla."
+  },
+  {
+    "site": "Shopping Center",
+    "cat": "Parking",
+    "en": "Delivery truck staging blocked sightline; repositioned with driver.",
+    "es": "Camión en espera bloqueando visibilidad; se reubicó con el conductor."
+  },
+  {
+    "site": "Shopping Center",
+    "cat": "Person",
+    "en": "Individual soliciting near entrance; property policy reminder issued.",
+    "es": "Persona realizando solicitudes cerca de la entrada; se recordó la política de la propiedad."
+  },
+  {
+    "site": "Shopping Center",
+    "cat": "Person",
+    "en": "Unhoused person resting in shaded area; welfare check; resources offered; left voluntarily.",
+    "es": "Persona sin hogar descansando en zona sombreada; verificación de bienestar; se ofrecieron recursos; se retiró voluntariamente."
+  },
+  {
+    "site": "Shopping Center",
+    "cat": "Person",
+    "en": "Group skateboarding in plaza; safety reminder; area cleared.",
+    "es": "Grupo practicando skate en la plaza; recordatorio de seguridad; área despejada."
+  },
+  {
+    "site": "Shopping Center",
+    "cat": "Person",
+    "en": "Lost child reported; assisted reunification at tenant store.",
+    "es": "Niño perdido reportado; se asistió la reunificación en una tienda."
+  },
+  {
+    "site": "Shopping Center",
+    "cat": "Safety",
+    "en": "Oil spill in parking stall; absorbent applied; area marked.",
+    "es": "Derrame de aceite en plaza de estacionamiento; se aplicó absorbente; área señalizada."
+  },
+  {
+    "site": "Shopping Center",
+    "cat": "Safety",
+    "en": "Uneven paver noted near walkway; cone placed; maintenance notified.",
+    "es": "Adoquín desnivelado cerca de la acera; se colocó cono; mantenimiento notificado."
+  },
+  {
+    "site": "Shopping Center",
+    "cat": "Safety",
+    "en": "Wind-driven debris at entrance; removed and area checked.",
+    "es": "Residuos arrastrados por el viento en la entrada; retirados y área verificada."
+  },
+  {
+    "site": "Shopping Center",
+    "cat": "Incident",
+    "en": "Verbal dispute between patrons; de-escalated; no injuries.",
+    "es": "Disputa verbal entre clientes; se desescaló; sin lesiones."
+  },
+  {
+    "site": "Shopping Center",
+    "cat": "Incident",
+    "en": "Minor fender-bender in lot; information exchanged; no injuries.",
+    "es": "Choque menor en el estacionamiento; intercambio de información; sin lesiones."
+  },
+  {
+    "site": "Shopping Center",
+    "cat": "Incident",
+    "en": "Fire alarm from tenant; cause burnt food; system reset by maintenance.",
+    "es": "Alarma de incendio desde un local; causa comida quemada; sistema reiniciado por mantenimiento."
+  },
+  {
+    "site": "Shopping Center",
+    "cat": "Training",
+    "en": "New officer tour of site map, hot spots, and camera views.",
+    "es": "Recorrido para nuevo oficial sobre mapa del sitio, puntos críticos y vistas de cámaras."
+  },
+  {
+    "site": "Shopping Center",
+    "cat": "Report",
+    "en": "Closing checklist completed; exterior gates locked and logged.",
+    "es": "Lista de cierre completada; portones exteriores cerrados y registrados."
+  }
+]

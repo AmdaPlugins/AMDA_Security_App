@@ -1,0 +1,40 @@
+# Core Python packages
+pandas>=1.5.0
+numpy>=1.23.0
+
+# Streamlit para interfaz visual
+streamlit>=1.25.0
+
+# Validación y estructuras de datos
+pydantic>=2.0.0
+
+# Utilidades generales
+python-dotenv>=1.0.0
+requests>=2.31.0
+
+# Pruebas
+pytest>=7.4.0
+
+# Opcional: para compatibilidad con JSON avanzados o bilingües
+ruamel.yaml>=0.17.0
+
+
+# ✅ ¿Qué cubre?
+# pandas, numpy: manipulación de datos
+
+# streamlit: interfaz visual para formularios o dashboards
+
+# pydantic: validación de estructuras JSON
+
+# python-dotenv: manejo de variables de entorno
+
+# requests: llamadas HTTP si integras APIs
+
+# pytest: pruebas unitarias
+
+# ruamel.yaml: útil si manejas configuraciones en YAML o necesitas compatibilidad extendida
+
+# 🛠 ️ Cómo instalar
+# Una vez que tengas este archivo en la raíz del proyecto, puedes instalar todo con:
+
+#pip install -r requirements.txt

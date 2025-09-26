@@ -1,0 +1,18 @@
+[
+  {
+    "id": "log123",
+    "schedule_id": "abc123",
+    "clock_in": "2024-01-20T08:00:00",
+    "clock_out": "2024-01-20T17:00:00",
+    "hours_worked": 9.0,
+    "payment": 225.0
+  },
+  {
+    "id": "d9e1c088",
+    "schedule_id": "1fc929af",
+    "clock_in": "2025-09-24T09:56:59.075478",
+    "clock_out": "2025-09-24T09:57:04.287135",
+    "hours_worked": 0.0,
+    "payment": 0.0
+  }
+]
